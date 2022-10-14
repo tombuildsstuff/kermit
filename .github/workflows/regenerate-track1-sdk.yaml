@@ -1,0 +1,72 @@
+---
+name: Regenerate Track1 SDKs
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/**'
+      - 'config/**'
+      - 'swagger/**'
+      - 'tools/**'
+
+jobs:
+  regenerate-track1-sdks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.18.5'
+
+      - uses: actions/setup-dotnet@v3
+        with:
+          # The Track1 AutoRest Generator requires .net core 2.x
+          dotnet-version: 2.2.x
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Generate Track1 SDKs
+        run: |
+          cd ./tools/autowrapper
+          make tools
+          make run
+        env:
+          NODE_OPTIONS: "--max-old-space-size=4096"
+
+      - name: Conditionally Commit the Generated Code
+        id: commit-generated-code
+        run: |
+          git checkout -b config/regeneration-from-${{ github.sha }}
+          git config user.name "GitHub Actions"
+          git config user.email "<>"
+          ./scripts/conditionally-commit.sh "SDK: regenerating based on the latest Swagger"
+
+      - name: Format the Generated Code
+        id: fmt-generated-code
+        if: ${{ steps.commit-generated-code.outputs.has_changes_to_push == 'true' }}
+        run: |
+          cd ./tools/autowrapper
+          make tools
+          make fmt-generated
+          cd ../../
+          git config user.name "GitHub Actions"
+          git config user.email "<>"
+          ./scripts/conditionally-commit.sh "SDK: formatting"
+
+      - name: Conditionally Send a Pull Request
+        id: push-and-open-pr
+        if: ${{ steps.commit-generated-code.outputs.has_changes_to_push == 'true' || steps.fmt-generated-code.outputs.has_changes_to_push == 'true' }}
+        run: |
+          git push origin config/regeneration-from-${{ github.sha }}
+          gh pr create --title "SDK: regenerating from ${{ github.sha }}" --body "Updating the Generated SDK based on the commit ${{ github.sha }}" -H "config/regeneration-from-${{ github.sha }}" -B main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,6 @@
+.fleet/
+.idea/
+package-lock.json
+node_modules/
+tools/autowrapper/autowrapper
+vendor/

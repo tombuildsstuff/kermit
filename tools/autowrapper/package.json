@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@microsoft.azure/autorest.go": "^2.1.187",
+    "@microsoft.azure/autorest.modeler": "https://registry.npmjs.org/@microsoft.azure/autorest.modeler/-/autorest.modeler-2.3.38.tgz"
+  }
+}

@@ -1,0 +1,21 @@
+name: Release the SDK
+on:
+  pull_request:
+    types: ['closed']
+
+concurrency:
+  group: 'release-${{ github.head_ref }}'
+  cancel-in-progress: true
+
+jobs:
+  release-go-sdk:
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "determine and publish the Git Tag"
+        run: |
+          ./scripts/determine-and-publish-git-tag.sh
