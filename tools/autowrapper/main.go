@@ -66,6 +66,7 @@ func runAutoRestForService(serviceName, apiVersion, tag, readmeFilePath string, 
 		"--version=2.0.4421", // the version of autorest itself
 		"--go.license-header=MICROSOFT_MIT_NO_VERSION",
 		"--enum-prefix",
+		fmt.Sprintf("--namespace=%s", strings.ToLower(serviceName)),
 		typeArg,
 		fmt.Sprintf("--output-folder=%s", outputDirectory),
 		readmeFilePath,
