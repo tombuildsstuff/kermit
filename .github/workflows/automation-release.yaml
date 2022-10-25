@@ -2,6 +2,8 @@ name: Release the SDK
 on:
   pull_request:
     types: ['closed']
+    paths:
+      - 'sdk/**'
 
 concurrency:
   group: 'release-${{ github.head_ref }}'

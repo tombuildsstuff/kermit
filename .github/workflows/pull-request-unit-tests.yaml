@@ -1,0 +1,37 @@
+---
+name: Validate the Track1 SDKs can be regenerated
+on:
+  pull_request:
+    types: ['opened', 'synchronize']
+
+jobs:
+  test-regenerate-the-track1-sdks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.18.5'
+
+      - uses: actions/setup-dotnet@v3
+        with:
+          # The Track1 AutoRest Generator requires .net core 2.x
+          dotnet-version: 2.2.x
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Generate Track1 SDKs
+        run: |
+          cd ./tools/autowrapper
+          make tools
+          make run
+        env:
+          NODE_OPTIONS: "--max-old-space-size=4096"
