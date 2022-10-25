@@ -2,7 +2,7 @@
 name: Validate the Track1 SDKs can be regenerated
 on:
   pull_request:
-    types: ['opened', 'synchronized']
+    types: ['opened', 'synchronize']
 
 jobs:
   test-regenerate-the-track1-sdks:
