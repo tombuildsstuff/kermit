@@ -11,7 +11,7 @@ resource_manager "compute" "2022-08-01" {
 }
 
 resource_manager "iothub" "2022-04-30-preview" {
-  swagger_tag = "package-2022-04-30-preview"
+  swagger_tag = "package-preview-2022-04-30"
   readme_file_path = "../../swagger/specification/iothub/resource-manager/readme.md"
 }
 
