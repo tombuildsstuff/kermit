@@ -15,6 +15,11 @@ resource_manager "iothub" "2022-04-30-preview" {
   readme_file_path = "../../swagger/specification/iothub/resource-manager/readme.md"
 }
 
+resource_manager "network" "2022-05-01" {
+  swagger_tag = "package-2022-05"
+  readme_file_path = "../../swagger/specification/network/resource-manager/readme.md"
+}
+
 resource_manager "synapse" "2021-06-01" {
   swagger_tag = "package-2021-06"
   readme_file_path = "../../swagger/specification/synapse/resource-manager/readme.md"
