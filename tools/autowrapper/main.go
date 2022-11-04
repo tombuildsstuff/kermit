@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/hcl/v2/hclsimple"
 )
 
-const autoRestGoVersion = "2.1.187"
+const autoRestGoVersion = "2.1.188"
 
 func main() {
 	log.Printf("Launched AutoWrapper..")
