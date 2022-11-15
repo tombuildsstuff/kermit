@@ -1,5 +1,10 @@
 ## NOTE: these are relative paths from `./tools/autowrapper`
 
+resource_manager "appplatform" "2022-09-01-preview" {
+  swagger_tag      = "package-preview-2022-09"
+  readme_file_path = "../../swagger/specification/appplatform/resource-manager/readme.md"
+}
+
 resource_manager "automanage" "2022-05-04" {
   swagger_tag      = "package-2022-05"
   readme_file_path = "../../swagger/specification/automanage/resource-manager/readme.md"
