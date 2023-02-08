@@ -30,3 +30,8 @@ resource_manager "synapse" "2021-06-01" {
   readme_file_path = "../../swagger/specification/synapse/resource-manager/readme.md"
 }
 
+
+resource_manager "botservice" "2021-05-01-preview" {
+  swagger_tag = "package-2021-05-01-preview"
+  readme_file_path = "../../swagger/specification/botservice/resource-manager/readme.md"
+}
