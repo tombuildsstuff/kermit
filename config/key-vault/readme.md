@@ -26,25 +26,27 @@ These are the global settings for the KeyVault API.
 
 ``` yaml
 openapi-type: data-plane
-tag: package-7.3
+tag: package-7.4
 ```
 
 
-### Tag: package-7.3
+### Tag: package-7.4
 
-These settings apply only when `--tag=package-7.3` is specified on the command line.
+These settings apply only when `--tag=package-7.4` is specified on the command line.
 
-```yaml $(tag) == 'package-7.3'
+```yaml $(tag) == 'package-7.4'
 input-file:
-  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.3/backuprestore.json
-  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.3/certificates.json
-  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.3/common.json
-  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.3/keys.json
-  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.3/rbac.json
-  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.3/secrets.json
-  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.3/securitydomain.json
-  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.3/storage.json
+  - Microsoft.KeyVault/stable/7.4/backuprestore.json
+  - Microsoft.KeyVault/stable/7.4/certificates.json
+  - Microsoft.KeyVault/stable/7.4/common.json
+  - Microsoft.KeyVault/stable/7.4/keys.json
+  - Microsoft.KeyVault/stable/7.4/rbac.json
+  - Microsoft.KeyVault/stable/7.4/secrets.json
+  - Microsoft.KeyVault/stable/7.4/securitydomain.json
+  - Microsoft.KeyVault/stable/7.4/settings.json
+  - Microsoft.KeyVault/stable/7.4/storage.json
 ```
+
 ---
 
 # Code Generation
