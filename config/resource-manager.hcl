@@ -50,3 +50,7 @@ resource_manager "botservice" "2021-05-01-preview" {
   readme_file_path = "../../swagger/specification/botservice/resource-manager/readme.md"
 }
 
+resource_manager "apimanagement" "2021-08-01" {
+  swagger_tag = "package-2021-08"
+  readme_file_path = "../../swagger/specification/apimanagement/resource-manager/readme.md"
+}
