@@ -22,11 +22,16 @@ function determineGitTag {
 
 function updateVersionNumber {
   local version=$1
+
+  echo "Updating the User Agent Version to ${version}.."
   echo "package version
 
 const Number = \"${version}\"" > ./version/version.go
-
   go fmt ./version/version.go
+
+  echo "Committing the User Agent Version update to ${version}.."
+  git add ./version/version.go
+  git commit -m "version: updating the user agent version to ${version}"
 }
 
 function publish {
@@ -34,6 +39,9 @@ function publish {
 
   echo "Tagging as '$version'.."
   git tag "$version"
+
+  echo "Pushing Commit.."
+  git push
 
   echo "Pushing Tags.."
   git push --tags
