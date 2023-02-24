@@ -57089,8 +57089,8 @@ type WatcherListResult struct {
 type WatcherPropertiesFormat struct {
 	// ProvisioningState - READ-ONLY; The provisioning state of the network watcher resource. Possible values include: 'ProvisioningStateSucceeded', 'ProvisioningStateUpdating', 'ProvisioningStateDeleting', 'ProvisioningStateFailed'
 	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
-	// RunningOperationIds - List of running operation IDs.
-	RunningOperationIds *[]int32 `json:"runningOperationIds,omitempty"`
+	// RunningOperationIds - List of running operation GUIDs.
+	RunningOperationIds *[]string `json:"runningOperationIds,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for WatcherPropertiesFormat.
