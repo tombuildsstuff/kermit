@@ -20,6 +20,15 @@ function determineGitTag {
   date '+v0.%Y%m%d.1%H%M%S'
 }
 
+function updateVersionNumber {
+  local version=$1
+  echo "package version
+
+const Number = \"${version}\"" > ./version/version.go
+
+  go fmt ./version/version.go
+}
+
 function publish {
   local version=$1
 
@@ -33,6 +42,7 @@ function publish {
 function main {
   local gitTag
   gitTag=$(determineGitTag)
+  updateVersionNumber "$gitTag"
   publish "$gitTag"
 }
 
