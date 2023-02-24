@@ -11,9 +11,10 @@ fmt-generated:
 	goimports -w ../../sdk
 
 run: build
+	@echo "==> generating SDKs..."
 	./autowrapper
-	# update the user agent string
-	sed -i '' -e "s/github.com\/Azure\/azure-sdk-for-go\/version/github.com\/tombuildsstuff\/kermit\/version/" -e "s/Azure-SDK-For-Go\//tombuildsstuff\/kermit\//" ../../sdk/**/*.go
+	@echo "==> updating the user agent..."
+	../../scripts/update-user-agent.sh
 
 tools:
 	@echo "==> installing required tooling..."
