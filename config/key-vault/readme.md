@@ -36,15 +36,15 @@ These settings apply only when `--tag=package-7.4` is specified on the command l
 
 ```yaml $(tag) == 'package-7.4'
 input-file:
-  - Microsoft.KeyVault/stable/7.4/backuprestore.json
-  - Microsoft.KeyVault/stable/7.4/certificates.json
-  - Microsoft.KeyVault/stable/7.4/common.json
-  - Microsoft.KeyVault/stable/7.4/keys.json
-  - Microsoft.KeyVault/stable/7.4/rbac.json
-  - Microsoft.KeyVault/stable/7.4/secrets.json
-  - Microsoft.KeyVault/stable/7.4/securitydomain.json
-  - Microsoft.KeyVault/stable/7.4/settings.json
-  - Microsoft.KeyVault/stable/7.4/storage.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.4/backuprestore.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.4/certificates.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.4/common.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.4/keys.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.4/rbac.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.4/secrets.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.4/securitydomain.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.4/settings.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.4/storage.json
 ```
 
 ---
