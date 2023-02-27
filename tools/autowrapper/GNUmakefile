@@ -11,7 +11,10 @@ fmt-generated:
 	goimports -w ../../sdk
 
 run: build
+	@echo "==> generating SDKs..."
 	./autowrapper
+	@echo "==> updating the user agent..."
+	../../scripts/update-user-agent.sh
 
 tools:
 	@echo "==> installing required tooling..."
