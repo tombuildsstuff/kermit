@@ -29,6 +29,10 @@ function updateVersionNumber {
 const Number = \"${version}\"" > ./version/version.go
   go fmt ./version/version.go
 
+  echo "Setting Committer Details.."
+  git config user.name "GitHub Actions"
+  git config user.email "<>"
+
   echo "Committing the User Agent Version update to ${version}.."
   git add ./version/version.go
   git commit -m "version: updating the user agent version to ${version}"
