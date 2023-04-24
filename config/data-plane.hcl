@@ -4,6 +4,10 @@ data_plane "appconfiguration" "1.0" {
   swagger_tag      = "package-1-0"
   readme_file_path = "../../swagger/specification/appconfiguration/data-plane/readme.md"
 }
+data_plane "attestation" "2022-08-01" {
+  swagger_tag      = "package-2022-08-01"
+  readme_file_path = "../../swagger/specification/attestation/data-plane/readme.md"
+}
 data_plane "batch" "2020-03.11.0" {
   swagger_tag      = "package-2020-03.11.0"
   readme_file_path = "../../swagger/specification/batch/data-plane/readme.md"
