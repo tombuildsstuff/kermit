@@ -770,7 +770,7 @@ type BigDataPoolResourceProperties struct {
 	IsAutotuneEnabled *bool `json:"isAutotuneEnabled,omitempty"`
 	// SessionLevelPackagesEnabled - Whether session level packages enabled.
 	SessionLevelPackagesEnabled *bool `json:"sessionLevelPackagesEnabled,omitempty"`
-	// CacheSize - The cache size
+	// CacheSize - READ-ONLY; The cache size
 	CacheSize *int32 `json:"cacheSize,omitempty"`
 	// DynamicExecutorAllocation - Dynamic Executor Allocation
 	DynamicExecutorAllocation *DynamicExecutorAllocation `json:"dynamicExecutorAllocation,omitempty"`
@@ -816,9 +816,6 @@ func (bdprp BigDataPoolResourceProperties) MarshalJSON() ([]byte, error) {
 	}
 	if bdprp.SessionLevelPackagesEnabled != nil {
 		objectMap["sessionLevelPackagesEnabled"] = bdprp.SessionLevelPackagesEnabled
-	}
-	if bdprp.CacheSize != nil {
-		objectMap["cacheSize"] = bdprp.CacheSize
 	}
 	if bdprp.DynamicExecutorAllocation != nil {
 		objectMap["dynamicExecutorAllocation"] = bdprp.DynamicExecutorAllocation
@@ -5625,7 +5622,7 @@ type LibraryInfo struct {
 	Path *string `json:"path,omitempty"`
 	// ContainerName - Storage blob container name.
 	ContainerName *string `json:"containerName,omitempty"`
-	// UploadedTimestamp - The last update time of the library.
+	// UploadedTimestamp - READ-ONLY; The last update time of the library.
 	UploadedTimestamp *date.Time `json:"uploadedTimestamp,omitempty"`
 	// Type - Type of the library.
 	Type *string `json:"type,omitempty"`
@@ -5646,9 +5643,6 @@ func (li LibraryInfo) MarshalJSON() ([]byte, error) {
 	}
 	if li.ContainerName != nil {
 		objectMap["containerName"] = li.ContainerName
-	}
-	if li.UploadedTimestamp != nil {
-		objectMap["uploadedTimestamp"] = li.UploadedTimestamp
 	}
 	if li.Type != nil {
 		objectMap["type"] = li.Type
@@ -17355,7 +17349,7 @@ type WorkspaceProperties struct {
 	SQLAdministratorLogin *string `json:"sqlAdministratorLogin,omitempty"`
 	// VirtualNetworkProfile - Virtual Network profile
 	VirtualNetworkProfile *VirtualNetworkProfile `json:"virtualNetworkProfile,omitempty"`
-	// ConnectivityEndpoints - Connectivity endpoints
+	// ConnectivityEndpoints - READ-ONLY; Connectivity endpoints
 	ConnectivityEndpoints map[string]*string `json:"connectivityEndpoints"`
 	// ManagedVirtualNetwork - Setting this to 'default' will ensure that all compute for this workspace is in a virtual network managed on behalf of the user.
 	ManagedVirtualNetwork *string `json:"managedVirtualNetwork,omitempty"`
@@ -17366,7 +17360,7 @@ type WorkspaceProperties struct {
 	// WorkspaceUID - READ-ONLY; The workspace unique identifier
 	WorkspaceUID *uuid.UUID `json:"workspaceUID,omitempty"`
 	// ExtraProperties - READ-ONLY; Workspace level configs and feature flags
-	ExtraProperties map[string]interface{} `json:"extraProperties"`
+	ExtraProperties interface{} `json:"extraProperties,omitempty"`
 	// ManagedVirtualNetworkSettings - Managed Virtual Network Settings
 	ManagedVirtualNetworkSettings *ManagedVirtualNetworkSettings `json:"managedVirtualNetworkSettings,omitempty"`
 	// WorkspaceRepositoryConfiguration - Git integration settings
@@ -17404,9 +17398,6 @@ func (wp WorkspaceProperties) MarshalJSON() ([]byte, error) {
 	}
 	if wp.VirtualNetworkProfile != nil {
 		objectMap["virtualNetworkProfile"] = wp.VirtualNetworkProfile
-	}
-	if wp.ConnectivityEndpoints != nil {
-		objectMap["connectivityEndpoints"] = wp.ConnectivityEndpoints
 	}
 	if wp.ManagedVirtualNetwork != nil {
 		objectMap["managedVirtualNetwork"] = wp.ManagedVirtualNetwork
