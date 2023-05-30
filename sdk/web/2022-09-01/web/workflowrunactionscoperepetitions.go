@@ -7,253 +7,252 @@ package web
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
-	"net/http"
-
-	"github.com/Azure/go-autorest/autorest"
-	"github.com/Azure/go-autorest/autorest/azure"
-	"github.com/Azure/go-autorest/autorest/validation"
-	"github.com/Azure/go-autorest/tracing"
+    "github.com/Azure/go-autorest/autorest"
+    "github.com/Azure/go-autorest/autorest/azure"
+    "net/http"
+    "context"
+    "github.com/Azure/go-autorest/tracing"
+    "github.com/Azure/go-autorest/autorest/validation"
 )
 
 // WorkflowRunActionScopeRepetitionsClient is the webSite Management Client
 type WorkflowRunActionScopeRepetitionsClient struct {
-	BaseClient
+    BaseClient
 }
-
 // NewWorkflowRunActionScopeRepetitionsClient creates an instance of the WorkflowRunActionScopeRepetitionsClient
 // client.
 func NewWorkflowRunActionScopeRepetitionsClient(subscriptionID string) WorkflowRunActionScopeRepetitionsClient {
-	return NewWorkflowRunActionScopeRepetitionsClientWithBaseURI(DefaultBaseURI, subscriptionID)
+    return NewWorkflowRunActionScopeRepetitionsClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewWorkflowRunActionScopeRepetitionsClientWithBaseURI creates an instance of the
 // WorkflowRunActionScopeRepetitionsClient client using a custom endpoint.  Use this when interacting with an Azure
 // cloud that uses a non-standard base URI (sovereign clouds, Azure stack).
-func NewWorkflowRunActionScopeRepetitionsClientWithBaseURI(baseURI string, subscriptionID string) WorkflowRunActionScopeRepetitionsClient {
-	return WorkflowRunActionScopeRepetitionsClient{NewWithBaseURI(baseURI, subscriptionID)}
-}
+    func NewWorkflowRunActionScopeRepetitionsClientWithBaseURI(baseURI string, subscriptionID string) WorkflowRunActionScopeRepetitionsClient {
+        return WorkflowRunActionScopeRepetitionsClient{ NewWithBaseURI(baseURI, subscriptionID)}
+    }
 
 // Get get a workflow run action scoped repetition.
-// Parameters:
-// resourceGroupName - name of the resource group to which the resource belongs.
-// name - site name.
-// workflowName - the workflow name.
-// runName - the workflow run name.
-// actionName - the workflow action name.
-// repetitionName - the workflow repetition.
+    // Parameters:
+        // resourceGroupName - name of the resource group to which the resource belongs.
+        // name - site name.
+        // workflowName - the workflow name.
+        // runName - the workflow run name.
+        // actionName - the workflow action name.
+        // repetitionName - the workflow repetition.
 func (client WorkflowRunActionScopeRepetitionsClient) Get(ctx context.Context, resourceGroupName string, name string, workflowName string, runName string, actionName string, repetitionName string) (result WorkflowRunActionRepetitionDefinition, err error) {
-	if tracing.IsEnabled() {
-		ctx = tracing.StartSpan(ctx, fqdn+"/WorkflowRunActionScopeRepetitionsClient.Get")
-		defer func() {
-			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
-			}
-			tracing.EndSpan(ctx, sc, err)
-		}()
-	}
-	if err := validation.Validate([]validation.Validation{
-		{TargetValue: resourceGroupName,
-			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+[^\.]$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewError("web.WorkflowRunActionScopeRepetitionsClient", "Get", err.Error())
-	}
+    if tracing.IsEnabled() {
+        ctx = tracing.StartSpan(ctx, fqdn + "/WorkflowRunActionScopeRepetitionsClient.Get")
+        defer func() {
+            sc := -1
+        if result.Response.Response != nil {
+        sc = result.Response.Response.StatusCode
+        }
+            tracing.EndSpan(ctx, sc, err)
+        }()
+    }
+        if err := validation.Validate([]validation.Validation{
+        { TargetValue: resourceGroupName,
+         Constraints: []validation.Constraint{	{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil },
+        	{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil },
+        	{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+[^\.]$`, Chain: nil }}}}); err != nil {
+        return result, validation.NewError("web.WorkflowRunActionScopeRepetitionsClient", "Get", err.Error())
+        }
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, name, workflowName, runName, actionName, repetitionName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "Get", nil, "Failure preparing request")
-		return
-	}
+        req, err := client.GetPreparer(ctx, resourceGroupName, name, workflowName, runName, actionName, repetitionName)
+    if err != nil {
+    err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "Get", nil , "Failure preparing request")
+    return
+    }
 
-	resp, err := client.GetSender(req)
-	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "Get", resp, "Failure sending request")
-		return
-	}
+        resp, err := client.GetSender(req)
+        if err != nil {
+        result.Response = autorest.Response{Response: resp}
+        err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "Get", resp, "Failure sending request")
+        return
+        }
 
-	result, err = client.GetResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "Get", resp, "Failure responding to request")
-		return
-	}
+        result, err = client.GetResponder(resp)
+        if err != nil {
+        err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "Get", resp, "Failure responding to request")
+        return
+        }
 
-	return
+    return
 }
 
-// GetPreparer prepares the Get request.
-func (client WorkflowRunActionScopeRepetitionsClient) GetPreparer(ctx context.Context, resourceGroupName string, name string, workflowName string, runName string, actionName string, repetitionName string) (*http.Request, error) {
-	pathParameters := map[string]interface{}{
-		"actionName":        autorest.Encode("path", actionName),
-		"name":              autorest.Encode("path", name),
-		"repetitionName":    autorest.Encode("path", repetitionName),
-		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"runName":           autorest.Encode("path", runName),
-		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
-		"workflowName":      autorest.Encode("path", workflowName),
-	}
+    // GetPreparer prepares the Get request.
+    func (client WorkflowRunActionScopeRepetitionsClient) GetPreparer(ctx context.Context, resourceGroupName string, name string, workflowName string, runName string, actionName string, repetitionName string) (*http.Request, error) {
+        pathParameters := map[string]interface{} {
+        "actionName": autorest.Encode("path",actionName),
+        "name": autorest.Encode("path",name),
+        "repetitionName": autorest.Encode("path",repetitionName),
+        "resourceGroupName": autorest.Encode("path",resourceGroupName),
+        "runName": autorest.Encode("path",runName),
+        "subscriptionId": autorest.Encode("path",client.SubscriptionID),
+        "workflowName": autorest.Encode("path",workflowName),
+        }
 
-	const APIVersion = "2022-09-01"
-	queryParameters := map[string]interface{}{
-		"api-version": APIVersion,
-	}
+            const APIVersion = "2022-09-01"
+    queryParameters := map[string]interface{} {
+    "api-version": APIVersion,
+    }
 
-	preparer := autorest.CreatePreparer(
-		autorest.AsGet(),
-		autorest.WithBaseURL(client.BaseURI),
-		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/runs/{runName}/actions/{actionName}/scopeRepetitions/{repetitionName}", pathParameters),
-		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
-}
+    preparer := autorest.CreatePreparer(
+autorest.AsGet(),
+autorest.WithBaseURL(client.BaseURI),
+autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/runs/{runName}/actions/{actionName}/scopeRepetitions/{repetitionName}",pathParameters),
+autorest.WithQueryParameters(queryParameters))
+    return preparer.Prepare((&http.Request{}).WithContext(ctx))
+    }
 
-// GetSender sends the Get request. The method will close the
-// http.Response Body if it receives an error.
-func (client WorkflowRunActionScopeRepetitionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
-}
+    // GetSender sends the Get request. The method will close the
+    // http.Response Body if it receives an error.
+    func (client WorkflowRunActionScopeRepetitionsClient) GetSender(req *http.Request) (*http.Response, error) {
+                return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+                }
 
-// GetResponder handles the response to the Get request. The method always
-// closes the http.Response Body.
-func (client WorkflowRunActionScopeRepetitionsClient) GetResponder(resp *http.Response) (result WorkflowRunActionRepetitionDefinition, err error) {
-	err = autorest.Respond(
-		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
-		autorest.ByClosing())
-	result.Response = autorest.Response{Response: resp}
-	return
-}
+    // GetResponder handles the response to the Get request. The method always
+    // closes the http.Response Body.
+    func (client WorkflowRunActionScopeRepetitionsClient) GetResponder(resp *http.Response) (result WorkflowRunActionRepetitionDefinition, err error) {
+            err = autorest.Respond(
+            resp,
+            azure.WithErrorUnlessStatusCode(http.StatusOK),
+            autorest.ByUnmarshallingJSON(&result),
+            autorest.ByClosing())
+            result.Response = autorest.Response{Response: resp}
+            return
+    }
 
 // List list the workflow run action scoped repetitions.
-// Parameters:
-// resourceGroupName - name of the resource group to which the resource belongs.
-// name - site name.
-// workflowName - the workflow name.
-// runName - the workflow run name.
-// actionName - the workflow action name.
+    // Parameters:
+        // resourceGroupName - name of the resource group to which the resource belongs.
+        // name - site name.
+        // workflowName - the workflow name.
+        // runName - the workflow run name.
+        // actionName - the workflow action name.
 func (client WorkflowRunActionScopeRepetitionsClient) List(ctx context.Context, resourceGroupName string, name string, workflowName string, runName string, actionName string) (result WorkflowRunActionRepetitionDefinitionCollectionPage, err error) {
-	if tracing.IsEnabled() {
-		ctx = tracing.StartSpan(ctx, fqdn+"/WorkflowRunActionScopeRepetitionsClient.List")
-		defer func() {
-			sc := -1
-			if result.wrardc.Response.Response != nil {
-				sc = result.wrardc.Response.Response.StatusCode
-			}
-			tracing.EndSpan(ctx, sc, err)
-		}()
-	}
-	if err := validation.Validate([]validation.Validation{
-		{TargetValue: resourceGroupName,
-			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+[^\.]$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewError("web.WorkflowRunActionScopeRepetitionsClient", "List", err.Error())
-	}
+    if tracing.IsEnabled() {
+        ctx = tracing.StartSpan(ctx, fqdn + "/WorkflowRunActionScopeRepetitionsClient.List")
+        defer func() {
+            sc := -1
+        if result.wrardc.Response.Response != nil {
+        sc = result.wrardc.Response.Response.StatusCode
+        }
+            tracing.EndSpan(ctx, sc, err)
+        }()
+    }
+        if err := validation.Validate([]validation.Validation{
+        { TargetValue: resourceGroupName,
+         Constraints: []validation.Constraint{	{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil },
+        	{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil },
+        	{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+[^\.]$`, Chain: nil }}}}); err != nil {
+        return result, validation.NewError("web.WorkflowRunActionScopeRepetitionsClient", "List", err.Error())
+        }
 
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, name, workflowName, runName, actionName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "List", nil, "Failure preparing request")
-		return
-	}
+            result.fn = client.listNextResults
+    req, err := client.ListPreparer(ctx, resourceGroupName, name, workflowName, runName, actionName)
+    if err != nil {
+    err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "List", nil , "Failure preparing request")
+    return
+    }
 
-	resp, err := client.ListSender(req)
-	if err != nil {
-		result.wrardc.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "List", resp, "Failure sending request")
-		return
-	}
+        resp, err := client.ListSender(req)
+        if err != nil {
+        result.wrardc.Response = autorest.Response{Response: resp}
+        err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "List", resp, "Failure sending request")
+        return
+        }
 
-	result.wrardc, err = client.ListResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "List", resp, "Failure responding to request")
-		return
-	}
-	if result.wrardc.hasNextLink() && result.wrardc.IsEmpty() {
-		err = result.NextWithContext(ctx)
-		return
-	}
+        result.wrardc, err = client.ListResponder(resp)
+        if err != nil {
+        err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "List", resp, "Failure responding to request")
+        return
+        }
+            if result.wrardc.hasNextLink() && result.wrardc.IsEmpty() {
+            err = result.NextWithContext(ctx)
+            return
+            }
 
-	return
+    return
 }
 
-// ListPreparer prepares the List request.
-func (client WorkflowRunActionScopeRepetitionsClient) ListPreparer(ctx context.Context, resourceGroupName string, name string, workflowName string, runName string, actionName string) (*http.Request, error) {
-	pathParameters := map[string]interface{}{
-		"actionName":        autorest.Encode("path", actionName),
-		"name":              autorest.Encode("path", name),
-		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"runName":           autorest.Encode("path", runName),
-		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
-		"workflowName":      autorest.Encode("path", workflowName),
-	}
+    // ListPreparer prepares the List request.
+    func (client WorkflowRunActionScopeRepetitionsClient) ListPreparer(ctx context.Context, resourceGroupName string, name string, workflowName string, runName string, actionName string) (*http.Request, error) {
+        pathParameters := map[string]interface{} {
+        "actionName": autorest.Encode("path",actionName),
+        "name": autorest.Encode("path",name),
+        "resourceGroupName": autorest.Encode("path",resourceGroupName),
+        "runName": autorest.Encode("path",runName),
+        "subscriptionId": autorest.Encode("path",client.SubscriptionID),
+        "workflowName": autorest.Encode("path",workflowName),
+        }
 
-	const APIVersion = "2022-09-01"
-	queryParameters := map[string]interface{}{
-		"api-version": APIVersion,
-	}
+            const APIVersion = "2022-09-01"
+    queryParameters := map[string]interface{} {
+    "api-version": APIVersion,
+    }
 
-	preparer := autorest.CreatePreparer(
-		autorest.AsGet(),
-		autorest.WithBaseURL(client.BaseURI),
-		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/runs/{runName}/actions/{actionName}/scopeRepetitions", pathParameters),
-		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
-}
+    preparer := autorest.CreatePreparer(
+autorest.AsGet(),
+autorest.WithBaseURL(client.BaseURI),
+autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/runs/{runName}/actions/{actionName}/scopeRepetitions",pathParameters),
+autorest.WithQueryParameters(queryParameters))
+    return preparer.Prepare((&http.Request{}).WithContext(ctx))
+    }
 
-// ListSender sends the List request. The method will close the
-// http.Response Body if it receives an error.
-func (client WorkflowRunActionScopeRepetitionsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
-}
+    // ListSender sends the List request. The method will close the
+    // http.Response Body if it receives an error.
+    func (client WorkflowRunActionScopeRepetitionsClient) ListSender(req *http.Request) (*http.Response, error) {
+                return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+                }
 
-// ListResponder handles the response to the List request. The method always
-// closes the http.Response Body.
-func (client WorkflowRunActionScopeRepetitionsClient) ListResponder(resp *http.Response) (result WorkflowRunActionRepetitionDefinitionCollection, err error) {
-	err = autorest.Respond(
-		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
-		autorest.ByClosing())
-	result.Response = autorest.Response{Response: resp}
-	return
-}
+    // ListResponder handles the response to the List request. The method always
+    // closes the http.Response Body.
+    func (client WorkflowRunActionScopeRepetitionsClient) ListResponder(resp *http.Response) (result WorkflowRunActionRepetitionDefinitionCollection, err error) {
+            err = autorest.Respond(
+            resp,
+            azure.WithErrorUnlessStatusCode(http.StatusOK),
+            autorest.ByUnmarshallingJSON(&result),
+            autorest.ByClosing())
+            result.Response = autorest.Response{Response: resp}
+            return
+    }
 
-// listNextResults retrieves the next set of results, if any.
-func (client WorkflowRunActionScopeRepetitionsClient) listNextResults(ctx context.Context, lastResults WorkflowRunActionRepetitionDefinitionCollection) (result WorkflowRunActionRepetitionDefinitionCollection, err error) {
-	req, err := lastResults.workflowRunActionRepetitionDefinitionCollectionPreparer(ctx)
-	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "listNextResults", nil, "Failure preparing next results request")
-	}
-	if req == nil {
-		return
-	}
-	resp, err := client.ListSender(req)
-	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "listNextResults", resp, "Failure sending next results request")
-	}
-	result, err = client.ListResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "listNextResults", resp, "Failure responding to next results request")
-	}
-	return
-}
+            // listNextResults retrieves the next set of results, if any.
+            func (client WorkflowRunActionScopeRepetitionsClient) listNextResults(ctx context.Context, lastResults WorkflowRunActionRepetitionDefinitionCollection) (result WorkflowRunActionRepetitionDefinitionCollection, err error) {
+            req, err := lastResults.workflowRunActionRepetitionDefinitionCollectionPreparer(ctx)
+            if err != nil {
+            return result, autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "listNextResults", nil , "Failure preparing next results request")
+            }
+            if req == nil {
+            return
+            }
+            resp, err := client.ListSender(req)
+            if err != nil {
+            result.Response = autorest.Response{Response: resp}
+            return result, autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "listNextResults", resp, "Failure sending next results request")
+            }
+            result, err = client.ListResponder(resp)
+            if err != nil {
+            err = autorest.NewErrorWithError(err, "web.WorkflowRunActionScopeRepetitionsClient", "listNextResults", resp, "Failure responding to next results request")
+            }
+            return
+                    }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client WorkflowRunActionScopeRepetitionsClient) ListComplete(ctx context.Context, resourceGroupName string, name string, workflowName string, runName string, actionName string) (result WorkflowRunActionRepetitionDefinitionCollectionIterator, err error) {
-	if tracing.IsEnabled() {
-		ctx = tracing.StartSpan(ctx, fqdn+"/WorkflowRunActionScopeRepetitionsClient.List")
-		defer func() {
-			sc := -1
-			if result.Response().Response.Response != nil {
-				sc = result.page.Response().Response.Response.StatusCode
-			}
-			tracing.EndSpan(ctx, sc, err)
-		}()
-	}
-	result.page, err = client.List(ctx, resourceGroupName, name, workflowName, runName, actionName)
-	return
-}
+            // ListComplete enumerates all values, automatically crossing page boundaries as required.
+            func (client WorkflowRunActionScopeRepetitionsClient) ListComplete(ctx context.Context, resourceGroupName string, name string, workflowName string, runName string, actionName string) (result WorkflowRunActionRepetitionDefinitionCollectionIterator, err error) {
+            if tracing.IsEnabled() {
+            ctx = tracing.StartSpan(ctx, fqdn + "/WorkflowRunActionScopeRepetitionsClient.List")
+            defer func() {
+            sc := -1
+            if result.Response().Response.Response != nil {
+            sc = result.page.Response().Response.Response.StatusCode
+            }
+            tracing.EndSpan(ctx, sc, err)
+            }()
+            }
+                    result.page, err = client.List(ctx, resourceGroupName, name, workflowName, runName, actionName)
+                            return
+            }
+
