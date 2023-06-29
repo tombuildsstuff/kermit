@@ -7,370 +7,371 @@ package appplatform
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-    "github.com/Azure/go-autorest/autorest"
-    "github.com/Azure/go-autorest/autorest/azure"
-    "net/http"
-    "context"
-    "github.com/Azure/go-autorest/tracing"
-    "github.com/Azure/go-autorest/autorest/validation"
+	"context"
+	"net/http"
+
+	"github.com/Azure/go-autorest/autorest"
+	"github.com/Azure/go-autorest/autorest/azure"
+	"github.com/Azure/go-autorest/autorest/validation"
+	"github.com/Azure/go-autorest/tracing"
 )
 
 // EurekaServersClient is the REST API for Azure Spring Apps
 type EurekaServersClient struct {
-    BaseClient
+	BaseClient
 }
+
 // NewEurekaServersClient creates an instance of the EurekaServersClient client.
 func NewEurekaServersClient(subscriptionID string) EurekaServersClient {
-    return NewEurekaServersClientWithBaseURI(DefaultBaseURI, subscriptionID)
+	return NewEurekaServersClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewEurekaServersClientWithBaseURI creates an instance of the EurekaServersClient client using a custom endpoint.
 // Use this when interacting with an Azure cloud that uses a non-standard base URI (sovereign clouds, Azure stack).
-    func NewEurekaServersClientWithBaseURI(baseURI string, subscriptionID string) EurekaServersClient {
-        return EurekaServersClient{ NewWithBaseURI(baseURI, subscriptionID)}
-    }
+func NewEurekaServersClientWithBaseURI(baseURI string, subscriptionID string) EurekaServersClient {
+	return EurekaServersClient{NewWithBaseURI(baseURI, subscriptionID)}
+}
 
 // Get get the eureka server settings.
-    // Parameters:
-        // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
-        // from the Azure Resource Manager API or the portal.
-        // serviceName - the name of the Service resource.
+// Parameters:
+// resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
+// from the Azure Resource Manager API or the portal.
+// serviceName - the name of the Service resource.
 func (client EurekaServersClient) Get(ctx context.Context, resourceGroupName string, serviceName string) (result EurekaServerResource, err error) {
-    if tracing.IsEnabled() {
-        ctx = tracing.StartSpan(ctx, fqdn + "/EurekaServersClient.Get")
-        defer func() {
-            sc := -1
-        if result.Response.Response != nil {
-        sc = result.Response.Response.StatusCode
-        }
-            tracing.EndSpan(ctx, sc, err)
-        }()
-    }
-        if err := validation.Validate([]validation.Validation{
-        { TargetValue: serviceName,
-         Constraints: []validation.Constraint{	{Target: "serviceName", Name: validation.Pattern, Rule: `^[a-z][a-z0-9-]*[a-z0-9]$`, Chain: nil }}}}); err != nil {
-        return result, validation.NewError("appplatform.EurekaServersClient", "Get", err.Error())
-        }
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/EurekaServersClient.Get")
+		defer func() {
+			sc := -1
+			if result.Response.Response != nil {
+				sc = result.Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	if err := validation.Validate([]validation.Validation{
+		{TargetValue: serviceName,
+			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.Pattern, Rule: `^[a-z][a-z0-9-]*[a-z0-9]$`, Chain: nil}}}}); err != nil {
+		return result, validation.NewError("appplatform.EurekaServersClient", "Get", err.Error())
+	}
 
-        req, err := client.GetPreparer(ctx, resourceGroupName, serviceName)
-    if err != nil {
-    err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "Get", nil , "Failure preparing request")
-    return
-    }
+	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "Get", nil, "Failure preparing request")
+		return
+	}
 
-        resp, err := client.GetSender(req)
-        if err != nil {
-        result.Response = autorest.Response{Response: resp}
-        err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "Get", resp, "Failure sending request")
-        return
-        }
+	resp, err := client.GetSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "Get", resp, "Failure sending request")
+		return
+	}
 
-        result, err = client.GetResponder(resp)
-        if err != nil {
-        err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "Get", resp, "Failure responding to request")
-        return
-        }
+	result, err = client.GetResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "Get", resp, "Failure responding to request")
+		return
+	}
 
-    return
+	return
 }
 
-    // GetPreparer prepares the Get request.
-    func (client EurekaServersClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
-        pathParameters := map[string]interface{} {
-        "resourceGroupName": autorest.Encode("path",resourceGroupName),
-        "serviceName": autorest.Encode("path",serviceName),
-        "subscriptionId": autorest.Encode("path",client.SubscriptionID),
-        }
+// GetPreparer prepares the Get request.
+func (client EurekaServersClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"resourceGroupName": autorest.Encode("path", resourceGroupName),
+		"serviceName":       autorest.Encode("path", serviceName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
 
-            const APIVersion = "2023-05-01-preview"
-    queryParameters := map[string]interface{} {
-    "api-version": APIVersion,
-    }
+	const APIVersion = "2023-05-01-preview"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
 
-    preparer := autorest.CreatePreparer(
-autorest.AsGet(),
-autorest.WithBaseURL(client.BaseURI),
-autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/eurekaServers/default",pathParameters),
-autorest.WithQueryParameters(queryParameters))
-    return preparer.Prepare((&http.Request{}).WithContext(ctx))
-    }
+	preparer := autorest.CreatePreparer(
+		autorest.AsGet(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/eurekaServers/default", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
 
-    // GetSender sends the Get request. The method will close the
-    // http.Response Body if it receives an error.
-    func (client EurekaServersClient) GetSender(req *http.Request) (*http.Response, error) {
-                return client.Send(req, azure.DoRetryWithRegistration(client.Client))
-                }
+// GetSender sends the Get request. The method will close the
+// http.Response Body if it receives an error.
+func (client EurekaServersClient) GetSender(req *http.Request) (*http.Response, error) {
+	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+}
 
-    // GetResponder handles the response to the Get request. The method always
-    // closes the http.Response Body.
-    func (client EurekaServersClient) GetResponder(resp *http.Response) (result EurekaServerResource, err error) {
-            err = autorest.Respond(
-            resp,
-            azure.WithErrorUnlessStatusCode(http.StatusOK),
-            autorest.ByUnmarshallingJSON(&result),
-            autorest.ByClosing())
-            result.Response = autorest.Response{Response: resp}
-            return
-    }
+// GetResponder handles the response to the Get request. The method always
+// closes the http.Response Body.
+func (client EurekaServersClient) GetResponder(resp *http.Response) (result EurekaServerResource, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
+	return
+}
 
 // List list the eureka server settings.
-    // Parameters:
-        // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
-        // from the Azure Resource Manager API or the portal.
-        // serviceName - the name of the Service resource.
+// Parameters:
+// resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
+// from the Azure Resource Manager API or the portal.
+// serviceName - the name of the Service resource.
 func (client EurekaServersClient) List(ctx context.Context, resourceGroupName string, serviceName string) (result EurekaServerResourceCollection, err error) {
-    if tracing.IsEnabled() {
-        ctx = tracing.StartSpan(ctx, fqdn + "/EurekaServersClient.List")
-        defer func() {
-            sc := -1
-        if result.Response.Response != nil {
-        sc = result.Response.Response.StatusCode
-        }
-            tracing.EndSpan(ctx, sc, err)
-        }()
-    }
-        if err := validation.Validate([]validation.Validation{
-        { TargetValue: serviceName,
-         Constraints: []validation.Constraint{	{Target: "serviceName", Name: validation.Pattern, Rule: `^[a-z][a-z0-9-]*[a-z0-9]$`, Chain: nil }}}}); err != nil {
-        return result, validation.NewError("appplatform.EurekaServersClient", "List", err.Error())
-        }
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/EurekaServersClient.List")
+		defer func() {
+			sc := -1
+			if result.Response.Response != nil {
+				sc = result.Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	if err := validation.Validate([]validation.Validation{
+		{TargetValue: serviceName,
+			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.Pattern, Rule: `^[a-z][a-z0-9-]*[a-z0-9]$`, Chain: nil}}}}); err != nil {
+		return result, validation.NewError("appplatform.EurekaServersClient", "List", err.Error())
+	}
 
-        req, err := client.ListPreparer(ctx, resourceGroupName, serviceName)
-    if err != nil {
-    err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "List", nil , "Failure preparing request")
-    return
-    }
+	req, err := client.ListPreparer(ctx, resourceGroupName, serviceName)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "List", nil, "Failure preparing request")
+		return
+	}
 
-        resp, err := client.ListSender(req)
-        if err != nil {
-        result.Response = autorest.Response{Response: resp}
-        err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "List", resp, "Failure sending request")
-        return
-        }
+	resp, err := client.ListSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "List", resp, "Failure sending request")
+		return
+	}
 
-        result, err = client.ListResponder(resp)
-        if err != nil {
-        err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "List", resp, "Failure responding to request")
-        return
-        }
+	result, err = client.ListResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "List", resp, "Failure responding to request")
+		return
+	}
 
-    return
+	return
 }
 
-    // ListPreparer prepares the List request.
-    func (client EurekaServersClient) ListPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
-        pathParameters := map[string]interface{} {
-        "resourceGroupName": autorest.Encode("path",resourceGroupName),
-        "serviceName": autorest.Encode("path",serviceName),
-        "subscriptionId": autorest.Encode("path",client.SubscriptionID),
-        }
+// ListPreparer prepares the List request.
+func (client EurekaServersClient) ListPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"resourceGroupName": autorest.Encode("path", resourceGroupName),
+		"serviceName":       autorest.Encode("path", serviceName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
 
-            const APIVersion = "2023-05-01-preview"
-    queryParameters := map[string]interface{} {
-    "api-version": APIVersion,
-    }
+	const APIVersion = "2023-05-01-preview"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
 
-    preparer := autorest.CreatePreparer(
-autorest.AsGet(),
-autorest.WithBaseURL(client.BaseURI),
-autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/eurekaServers",pathParameters),
-autorest.WithQueryParameters(queryParameters))
-    return preparer.Prepare((&http.Request{}).WithContext(ctx))
-    }
+	preparer := autorest.CreatePreparer(
+		autorest.AsGet(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/eurekaServers", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
 
-    // ListSender sends the List request. The method will close the
-    // http.Response Body if it receives an error.
-    func (client EurekaServersClient) ListSender(req *http.Request) (*http.Response, error) {
-                return client.Send(req, azure.DoRetryWithRegistration(client.Client))
-                }
+// ListSender sends the List request. The method will close the
+// http.Response Body if it receives an error.
+func (client EurekaServersClient) ListSender(req *http.Request) (*http.Response, error) {
+	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+}
 
-    // ListResponder handles the response to the List request. The method always
-    // closes the http.Response Body.
-    func (client EurekaServersClient) ListResponder(resp *http.Response) (result EurekaServerResourceCollection, err error) {
-            err = autorest.Respond(
-            resp,
-            azure.WithErrorUnlessStatusCode(http.StatusOK),
-            autorest.ByUnmarshallingJSON(&result),
-            autorest.ByClosing())
-            result.Response = autorest.Response{Response: resp}
-            return
-    }
+// ListResponder handles the response to the List request. The method always
+// closes the http.Response Body.
+func (client EurekaServersClient) ListResponder(resp *http.Response) (result EurekaServerResourceCollection, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
+	return
+}
 
 // UpdatePatch update the eureka server settings.
-    // Parameters:
-        // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
-        // from the Azure Resource Manager API or the portal.
-        // serviceName - the name of the Service resource.
-        // eurekaServerResource - parameters for the update operation
+// Parameters:
+// resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
+// from the Azure Resource Manager API or the portal.
+// serviceName - the name of the Service resource.
+// eurekaServerResource - parameters for the update operation
 func (client EurekaServersClient) UpdatePatch(ctx context.Context, resourceGroupName string, serviceName string, eurekaServerResource EurekaServerResource) (result EurekaServersUpdatePatchFuture, err error) {
-    if tracing.IsEnabled() {
-        ctx = tracing.StartSpan(ctx, fqdn + "/EurekaServersClient.UpdatePatch")
-        defer func() {
-            sc := -1
-        if result.FutureAPI != nil && result.FutureAPI.Response() != nil {
-        sc = result.FutureAPI.Response().StatusCode
-        }
-            tracing.EndSpan(ctx, sc, err)
-        }()
-    }
-        if err := validation.Validate([]validation.Validation{
-        { TargetValue: serviceName,
-         Constraints: []validation.Constraint{	{Target: "serviceName", Name: validation.Pattern, Rule: `^[a-z][a-z0-9-]*[a-z0-9]$`, Chain: nil }}}}); err != nil {
-        return result, validation.NewError("appplatform.EurekaServersClient", "UpdatePatch", err.Error())
-        }
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/EurekaServersClient.UpdatePatch")
+		defer func() {
+			sc := -1
+			if result.FutureAPI != nil && result.FutureAPI.Response() != nil {
+				sc = result.FutureAPI.Response().StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	if err := validation.Validate([]validation.Validation{
+		{TargetValue: serviceName,
+			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.Pattern, Rule: `^[a-z][a-z0-9-]*[a-z0-9]$`, Chain: nil}}}}); err != nil {
+		return result, validation.NewError("appplatform.EurekaServersClient", "UpdatePatch", err.Error())
+	}
 
-        req, err := client.UpdatePatchPreparer(ctx, resourceGroupName, serviceName, eurekaServerResource)
-    if err != nil {
-    err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "UpdatePatch", nil , "Failure preparing request")
-    return
-    }
+	req, err := client.UpdatePatchPreparer(ctx, resourceGroupName, serviceName, eurekaServerResource)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "UpdatePatch", nil, "Failure preparing request")
+		return
+	}
 
-        result, err = client.UpdatePatchSender(req)
-        if err != nil {
-        err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "UpdatePatch", result.Response(), "Failure sending request")
-        return
-        }
+	result, err = client.UpdatePatchSender(req)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "UpdatePatch", result.Response(), "Failure sending request")
+		return
+	}
 
-    return
+	return
 }
 
-    // UpdatePatchPreparer prepares the UpdatePatch request.
-    func (client EurekaServersClient) UpdatePatchPreparer(ctx context.Context, resourceGroupName string, serviceName string, eurekaServerResource EurekaServerResource) (*http.Request, error) {
-        pathParameters := map[string]interface{} {
-        "resourceGroupName": autorest.Encode("path",resourceGroupName),
-        "serviceName": autorest.Encode("path",serviceName),
-        "subscriptionId": autorest.Encode("path",client.SubscriptionID),
-        }
+// UpdatePatchPreparer prepares the UpdatePatch request.
+func (client EurekaServersClient) UpdatePatchPreparer(ctx context.Context, resourceGroupName string, serviceName string, eurekaServerResource EurekaServerResource) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"resourceGroupName": autorest.Encode("path", resourceGroupName),
+		"serviceName":       autorest.Encode("path", serviceName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
 
-            const APIVersion = "2023-05-01-preview"
-    queryParameters := map[string]interface{} {
-    "api-version": APIVersion,
-    }
+	const APIVersion = "2023-05-01-preview"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
 
-    preparer := autorest.CreatePreparer(
-autorest.AsContentType("application/json; charset=utf-8"),
-autorest.AsPatch(),
-autorest.WithBaseURL(client.BaseURI),
-autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/eurekaServers/default",pathParameters),
-autorest.WithJSON(eurekaServerResource),
-autorest.WithQueryParameters(queryParameters))
-    return preparer.Prepare((&http.Request{}).WithContext(ctx))
-    }
+	preparer := autorest.CreatePreparer(
+		autorest.AsContentType("application/json; charset=utf-8"),
+		autorest.AsPatch(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/eurekaServers/default", pathParameters),
+		autorest.WithJSON(eurekaServerResource),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
 
-    // UpdatePatchSender sends the UpdatePatch request. The method will close the
-    // http.Response Body if it receives an error.
-    func (client EurekaServersClient) UpdatePatchSender(req *http.Request) (future EurekaServersUpdatePatchFuture, err error) {
-            var resp *http.Response
-            future.FutureAPI = &azure.Future{}
-            resp, err = client.Send(req, azure.DoRetryWithRegistration(client.Client))
-            if err != nil {
-            return
-            }
-            var azf azure.Future
-            azf, err = azure.NewFutureFromResponse(resp)
-            future.FutureAPI = &azf
-            future.Result = future.result
-            return
-                }
+// UpdatePatchSender sends the UpdatePatch request. The method will close the
+// http.Response Body if it receives an error.
+func (client EurekaServersClient) UpdatePatchSender(req *http.Request) (future EurekaServersUpdatePatchFuture, err error) {
+	var resp *http.Response
+	future.FutureAPI = &azure.Future{}
+	resp, err = client.Send(req, azure.DoRetryWithRegistration(client.Client))
+	if err != nil {
+		return
+	}
+	var azf azure.Future
+	azf, err = azure.NewFutureFromResponse(resp)
+	future.FutureAPI = &azf
+	future.Result = future.result
+	return
+}
 
-    // UpdatePatchResponder handles the response to the UpdatePatch request. The method always
-    // closes the http.Response Body.
-    func (client EurekaServersClient) UpdatePatchResponder(resp *http.Response) (result EurekaServerResource, err error) {
-            err = autorest.Respond(
-            resp,
-            azure.WithErrorUnlessStatusCode(http.StatusOK,http.StatusAccepted),
-            autorest.ByUnmarshallingJSON(&result),
-            autorest.ByClosing())
-            result.Response = autorest.Response{Response: resp}
-            return
-    }
+// UpdatePatchResponder handles the response to the UpdatePatch request. The method always
+// closes the http.Response Body.
+func (client EurekaServersClient) UpdatePatchResponder(resp *http.Response) (result EurekaServerResource, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
+	return
+}
 
 // UpdatePut update the eureka server settings.
-    // Parameters:
-        // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
-        // from the Azure Resource Manager API or the portal.
-        // serviceName - the name of the Service resource.
-        // eurekaServerResource - parameters for the update operation
+// Parameters:
+// resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
+// from the Azure Resource Manager API or the portal.
+// serviceName - the name of the Service resource.
+// eurekaServerResource - parameters for the update operation
 func (client EurekaServersClient) UpdatePut(ctx context.Context, resourceGroupName string, serviceName string, eurekaServerResource EurekaServerResource) (result EurekaServersUpdatePutFuture, err error) {
-    if tracing.IsEnabled() {
-        ctx = tracing.StartSpan(ctx, fqdn + "/EurekaServersClient.UpdatePut")
-        defer func() {
-            sc := -1
-        if result.FutureAPI != nil && result.FutureAPI.Response() != nil {
-        sc = result.FutureAPI.Response().StatusCode
-        }
-            tracing.EndSpan(ctx, sc, err)
-        }()
-    }
-        if err := validation.Validate([]validation.Validation{
-        { TargetValue: serviceName,
-         Constraints: []validation.Constraint{	{Target: "serviceName", Name: validation.Pattern, Rule: `^[a-z][a-z0-9-]*[a-z0-9]$`, Chain: nil }}}}); err != nil {
-        return result, validation.NewError("appplatform.EurekaServersClient", "UpdatePut", err.Error())
-        }
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/EurekaServersClient.UpdatePut")
+		defer func() {
+			sc := -1
+			if result.FutureAPI != nil && result.FutureAPI.Response() != nil {
+				sc = result.FutureAPI.Response().StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	if err := validation.Validate([]validation.Validation{
+		{TargetValue: serviceName,
+			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.Pattern, Rule: `^[a-z][a-z0-9-]*[a-z0-9]$`, Chain: nil}}}}); err != nil {
+		return result, validation.NewError("appplatform.EurekaServersClient", "UpdatePut", err.Error())
+	}
 
-        req, err := client.UpdatePutPreparer(ctx, resourceGroupName, serviceName, eurekaServerResource)
-    if err != nil {
-    err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "UpdatePut", nil , "Failure preparing request")
-    return
-    }
+	req, err := client.UpdatePutPreparer(ctx, resourceGroupName, serviceName, eurekaServerResource)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "UpdatePut", nil, "Failure preparing request")
+		return
+	}
 
-        result, err = client.UpdatePutSender(req)
-        if err != nil {
-        err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "UpdatePut", result.Response(), "Failure sending request")
-        return
-        }
+	result, err = client.UpdatePutSender(req)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "appplatform.EurekaServersClient", "UpdatePut", result.Response(), "Failure sending request")
+		return
+	}
 
-    return
+	return
 }
 
-    // UpdatePutPreparer prepares the UpdatePut request.
-    func (client EurekaServersClient) UpdatePutPreparer(ctx context.Context, resourceGroupName string, serviceName string, eurekaServerResource EurekaServerResource) (*http.Request, error) {
-        pathParameters := map[string]interface{} {
-        "resourceGroupName": autorest.Encode("path",resourceGroupName),
-        "serviceName": autorest.Encode("path",serviceName),
-        "subscriptionId": autorest.Encode("path",client.SubscriptionID),
-        }
+// UpdatePutPreparer prepares the UpdatePut request.
+func (client EurekaServersClient) UpdatePutPreparer(ctx context.Context, resourceGroupName string, serviceName string, eurekaServerResource EurekaServerResource) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"resourceGroupName": autorest.Encode("path", resourceGroupName),
+		"serviceName":       autorest.Encode("path", serviceName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
 
-            const APIVersion = "2023-05-01-preview"
-    queryParameters := map[string]interface{} {
-    "api-version": APIVersion,
-    }
+	const APIVersion = "2023-05-01-preview"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
 
-    preparer := autorest.CreatePreparer(
-autorest.AsContentType("application/json; charset=utf-8"),
-autorest.AsPut(),
-autorest.WithBaseURL(client.BaseURI),
-autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/eurekaServers/default",pathParameters),
-autorest.WithJSON(eurekaServerResource),
-autorest.WithQueryParameters(queryParameters))
-    return preparer.Prepare((&http.Request{}).WithContext(ctx))
-    }
+	preparer := autorest.CreatePreparer(
+		autorest.AsContentType("application/json; charset=utf-8"),
+		autorest.AsPut(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/eurekaServers/default", pathParameters),
+		autorest.WithJSON(eurekaServerResource),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
 
-    // UpdatePutSender sends the UpdatePut request. The method will close the
-    // http.Response Body if it receives an error.
-    func (client EurekaServersClient) UpdatePutSender(req *http.Request) (future EurekaServersUpdatePutFuture, err error) {
-            var resp *http.Response
-            future.FutureAPI = &azure.Future{}
-            resp, err = client.Send(req, azure.DoRetryWithRegistration(client.Client))
-            if err != nil {
-            return
-            }
-            var azf azure.Future
-            azf, err = azure.NewFutureFromResponse(resp)
-            future.FutureAPI = &azf
-            future.Result = future.result
-            return
-                }
+// UpdatePutSender sends the UpdatePut request. The method will close the
+// http.Response Body if it receives an error.
+func (client EurekaServersClient) UpdatePutSender(req *http.Request) (future EurekaServersUpdatePutFuture, err error) {
+	var resp *http.Response
+	future.FutureAPI = &azure.Future{}
+	resp, err = client.Send(req, azure.DoRetryWithRegistration(client.Client))
+	if err != nil {
+		return
+	}
+	var azf azure.Future
+	azf, err = azure.NewFutureFromResponse(resp)
+	future.FutureAPI = &azf
+	future.Result = future.result
+	return
+}
 
-    // UpdatePutResponder handles the response to the UpdatePut request. The method always
-    // closes the http.Response Body.
-    func (client EurekaServersClient) UpdatePutResponder(resp *http.Response) (result EurekaServerResource, err error) {
-            err = autorest.Respond(
-            resp,
-            azure.WithErrorUnlessStatusCode(http.StatusOK,http.StatusCreated),
-            autorest.ByUnmarshallingJSON(&result),
-            autorest.ByClosing())
-            result.Response = autorest.Response{Response: resp}
-            return
-    }
-
+// UpdatePutResponder handles the response to the UpdatePut request. The method always
+// closes the http.Response Body.
+func (client EurekaServersClient) UpdatePutResponder(resp *http.Response) (result EurekaServerResource, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
+	return
+}
