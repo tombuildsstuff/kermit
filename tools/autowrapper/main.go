@@ -50,6 +50,10 @@ func run() error {
 }
 
 func runAutoRestForService(serviceName, apiVersion, tag, readmeFilePath string, isResourceManager bool) error {
+	// Remove any associated `readme.go.md` file for simplicities sake
+	goReadmePath := fmt.Sprintf("%s.go.md", strings.TrimSuffix(readmeFilePath, ".md"))
+	os.Remove(goReadmePath)
+
 	// autorest --use=@microsoft.azure/autorest.go@2.1.187 --tag=package-2022-02-preview --go-sdk-folder=./azure-sdk-for-go --go --verbose --use-onever --version=2.0.4421 --go.license-header=MICROSOFT_MIT_NO_VERSION --enum-prefix ./azure-rest-api-specs/specification/containerregistry/resource-manager/readme.md --output-folder=./example-dir
 	outputDirectory := fmt.Sprintf("../../sdk/%[1]s/%[2]s/%[1]s", serviceName, apiVersion)
 	log.Printf("[DEBUG] Generating Service %q / Tag %q into %q..", serviceName, tag, outputDirectory)
