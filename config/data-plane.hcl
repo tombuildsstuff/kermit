@@ -22,7 +22,7 @@ data_plane "batch" "2022-01.15.0" {
 }
 data_plane "iotcentral" "2022-10-31-preview" {
   swagger_tag      = "package-2022-10-31-preview"
-  readme_file_path = "../../swagger/specification/iotcentral/data-plane/readme.md"
+  readme_file_path = "../../config/iotcentral/readme.md"
 }
 data_plane "keyvault" "7.4" {
   swagger_tag      = "package-7.4"
