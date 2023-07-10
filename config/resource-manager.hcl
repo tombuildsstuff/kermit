@@ -55,6 +55,11 @@ resource_manager "network" "2022-11-01" {
   readme_file_path = "../../swagger/specification/network/resource-manager/readme.md"
 }
 
+resource_manager "network" "2023-02-01" {
+  swagger_tag = "package-2023-02"
+  readme_file_path = "../../swagger/specification/network/resource-manager/readme.md"
+}
+
 resource_manager "securityinsights" "2022-10-01-preview" {
   swagger_tag = "package-preview-2022-10"
   readme_file_path = "../../swagger/specification/securityinsights/resource-manager/readme.md"
