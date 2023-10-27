@@ -7,7 +7,7 @@ on:
     paths:
       - '.github/**'
       - 'config/**'
-      - 'swagger/**'
+      - 'swagger'
       - 'tools/**'
 
 jobs:
@@ -47,7 +47,7 @@ jobs:
         run: |
           git checkout -b config/regeneration-from-${{ github.sha }}
           git config user.name "GitHub Actions"
-          git config user.email "<>"
+          git config user.email '<>'
           ./scripts/conditionally-commit.sh "SDK: regenerating based on the latest Swagger"
 
       - name: Format the Generated Code
@@ -59,7 +59,7 @@ jobs:
           make fmt-generated
           cd ../../
           git config user.name "GitHub Actions"
-          git config user.email "<>"
+          git config user.email '<>'
           ./scripts/conditionally-commit.sh "SDK: formatting"
 
       - name: Conditionally Send a Pull Request
