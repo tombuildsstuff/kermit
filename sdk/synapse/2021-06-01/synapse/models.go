@@ -9275,12 +9275,6 @@ func (r Resource) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// ResourceMoveDefinition contains the information necessary to perform a resource move (rename).
-type ResourceMoveDefinition struct {
-	// ID - The target ID for the resource
-	ID *string `json:"id,omitempty"`
-}
-
 // RestorableDroppedSQLPool a restorable dropped Sql pool
 type RestorableDroppedSQLPool struct {
 	autorest.Response `json:"-"`
@@ -17436,7 +17430,7 @@ func (wp WorkspaceProperties) MarshalJSON() ([]byte, error) {
 type WorkspaceRepositoryConfiguration struct {
 	// Type - Type of workspace repositoryID configuration. Example WorkspaceVSTSConfiguration, WorkspaceGitHubConfiguration
 	Type *string `json:"type,omitempty"`
-	// HostName - GitHub Enterprise host name. For example: https://github.mydomain.com
+	// HostName - GitHub Enterprise host name. For example: `https://github.mydomain.com`
 	HostName *string `json:"hostName,omitempty"`
 	// AccountName - Account name
 	AccountName *string `json:"accountName,omitempty"`

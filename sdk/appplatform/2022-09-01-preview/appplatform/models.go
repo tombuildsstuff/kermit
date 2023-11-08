@@ -3762,7 +3762,7 @@ type ClusterResourceProperties struct {
 	VnetAddons *ServiceVNetAddons `json:"vnetAddons,omitempty"`
 	// Version - READ-ONLY; Version of the Service
 	Version *int32 `json:"version,omitempty"`
-	// ServiceID - READ-ONLY; ServiceInstanceEntity GUID which uniquely identifies a created resource
+	// ServiceID - READ-ONLY; ServiceInstanceEntity Id which uniquely identifies a created resource
 	ServiceID *string `json:"serviceId,omitempty"`
 	// PowerState - READ-ONLY; Power state of the Service. Possible values include: 'PowerStateRunning', 'PowerStateStopped'
 	PowerState    PowerState `json:"powerState,omitempty"`
