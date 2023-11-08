@@ -29,6 +29,22 @@ openapi-type: data-plane
 tag: package-7.4
 ```
 
+### Tag: package-preview-7.5-preview.1
+
+These settings apply only when `--tag=package-preview-7.5-preview.1` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-7.5-preview.1'
+input-file:
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/preview/7.5-preview.1/backuprestore.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/preview/7.5-preview.1/certificates.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/preview/7.5-preview.1/common.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/preview/7.5-preview.1/keys.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/preview/7.5-preview.1/rbac.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/preview/7.5-preview.1/secrets.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/preview/7.5-preview.1/securitydomain.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/preview/7.5-preview.1/settings.json
+  - ../../swagger/specification/keyvault/data-plane/Microsoft.KeyVault/preview/7.5-preview.1/storage.json
+```
 
 ### Tag: package-7.4
 
