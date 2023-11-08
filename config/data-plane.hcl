@@ -28,6 +28,10 @@ data_plane "keyvault" "7.4" {
   swagger_tag      = "package-7.4"
   readme_file_path = "../../config/key-vault/readme.md"
 }
+data_plane "keyvault" "7.5-preview.1" {
+  swagger_tag      = "package-preview-7.5-preview.1"
+  readme_file_path = "../../config/key-vault/readme.md"
+}
 data_plane "synapse" "2019-06-01-preview" {
   swagger_tag      = "package-vnet-2019-06-01-preview"
   readme_file_path = "../../swagger/specification/synapse/data-plane/readme.md"
