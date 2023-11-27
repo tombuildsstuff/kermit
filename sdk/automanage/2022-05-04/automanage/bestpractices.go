@@ -7,166 +7,165 @@ package automanage
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
-	"net/http"
-
-	"github.com/Azure/go-autorest/autorest"
-	"github.com/Azure/go-autorest/autorest/azure"
-	"github.com/Azure/go-autorest/tracing"
+    "github.com/Azure/go-autorest/autorest"
+    "github.com/Azure/go-autorest/autorest/azure"
+    "net/http"
+    "context"
+    "github.com/Azure/go-autorest/tracing"
 )
 
 // BestPracticesClient is the automanage Client
 type BestPracticesClient struct {
-	BaseClient
+    BaseClient
 }
-
 // NewBestPracticesClient creates an instance of the BestPracticesClient client.
 func NewBestPracticesClient(subscriptionID string) BestPracticesClient {
-	return NewBestPracticesClientWithBaseURI(DefaultBaseURI, subscriptionID)
+    return NewBestPracticesClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewBestPracticesClientWithBaseURI creates an instance of the BestPracticesClient client using a custom endpoint.
 // Use this when interacting with an Azure cloud that uses a non-standard base URI (sovereign clouds, Azure stack).
-func NewBestPracticesClientWithBaseURI(baseURI string, subscriptionID string) BestPracticesClient {
-	return BestPracticesClient{NewWithBaseURI(baseURI, subscriptionID)}
-}
+    func NewBestPracticesClientWithBaseURI(baseURI string, subscriptionID string) BestPracticesClient {
+        return BestPracticesClient{ NewWithBaseURI(baseURI, subscriptionID)}
+    }
 
 // Get get information about a Automanage best practice
-// Parameters:
-// bestPracticeName - the Automanage best practice name.
+    // Parameters:
+        // bestPracticeName - the Automanage best practice name.
 func (client BestPracticesClient) Get(ctx context.Context, bestPracticeName string) (result BestPractice, err error) {
-	if tracing.IsEnabled() {
-		ctx = tracing.StartSpan(ctx, fqdn+"/BestPracticesClient.Get")
-		defer func() {
-			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
-			}
-			tracing.EndSpan(ctx, sc, err)
-		}()
-	}
-	req, err := client.GetPreparer(ctx, bestPracticeName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "Get", nil, "Failure preparing request")
-		return
-	}
+    if tracing.IsEnabled() {
+        ctx = tracing.StartSpan(ctx, fqdn + "/BestPracticesClient.Get")
+        defer func() {
+            sc := -1
+        if result.Response.Response != nil {
+        sc = result.Response.Response.StatusCode
+        }
+            tracing.EndSpan(ctx, sc, err)
+        }()
+    }
+    req, err := client.GetPreparer(ctx, bestPracticeName)
+    if err != nil {
+    err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "Get", nil , "Failure preparing request")
+    return
+    }
 
-	resp, err := client.GetSender(req)
-	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "Get", resp, "Failure sending request")
-		return
-	}
+        resp, err := client.GetSender(req)
+        if err != nil {
+        result.Response = autorest.Response{Response: resp}
+        err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "Get", resp, "Failure sending request")
+        return
+        }
 
-	result, err = client.GetResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "Get", resp, "Failure responding to request")
-		return
-	}
+        result, err = client.GetResponder(resp)
+        if err != nil {
+        err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "Get", resp, "Failure responding to request")
+        return
+        }
 
-	return
+    return
 }
 
-// GetPreparer prepares the Get request.
-func (client BestPracticesClient) GetPreparer(ctx context.Context, bestPracticeName string) (*http.Request, error) {
-	pathParameters := map[string]interface{}{
-		"bestPracticeName": autorest.Encode("path", bestPracticeName),
-	}
+    // GetPreparer prepares the Get request.
+    func (client BestPracticesClient) GetPreparer(ctx context.Context, bestPracticeName string) (*http.Request, error) {
+        pathParameters := map[string]interface{} {
+        "bestPracticeName": autorest.Encode("path",bestPracticeName),
+        }
 
-	const APIVersion = "2022-05-04"
-	queryParameters := map[string]interface{}{
-		"api-version": APIVersion,
-	}
+            const APIVersion = "2022-05-04"
+    queryParameters := map[string]interface{} {
+    "api-version": APIVersion,
+    }
 
-	preparer := autorest.CreatePreparer(
-		autorest.AsGet(),
-		autorest.WithBaseURL(client.BaseURI),
-		autorest.WithPathParameters("/providers/Microsoft.Automanage/bestPractices/{bestPracticeName}", pathParameters),
-		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
-}
+    preparer := autorest.CreatePreparer(
+autorest.AsGet(),
+autorest.WithBaseURL(client.BaseURI),
+autorest.WithPathParameters("/providers/Microsoft.Automanage/bestPractices/{bestPracticeName}",pathParameters),
+autorest.WithQueryParameters(queryParameters))
+    return preparer.Prepare((&http.Request{}).WithContext(ctx))
+    }
 
-// GetSender sends the Get request. The method will close the
-// http.Response Body if it receives an error.
-func (client BestPracticesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return client.Send(req, autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-}
+    // GetSender sends the Get request. The method will close the
+    // http.Response Body if it receives an error.
+    func (client BestPracticesClient) GetSender(req *http.Request) (*http.Response, error) {
+                return client.Send(req, autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+                }
 
-// GetResponder handles the response to the Get request. The method always
-// closes the http.Response Body.
-func (client BestPracticesClient) GetResponder(resp *http.Response) (result BestPractice, err error) {
-	err = autorest.Respond(
-		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
-		autorest.ByClosing())
-	result.Response = autorest.Response{Response: resp}
-	return
-}
+    // GetResponder handles the response to the Get request. The method always
+    // closes the http.Response Body.
+    func (client BestPracticesClient) GetResponder(resp *http.Response) (result BestPractice, err error) {
+            err = autorest.Respond(
+            resp,
+            azure.WithErrorUnlessStatusCode(http.StatusOK),
+            autorest.ByUnmarshallingJSON(&result),
+            autorest.ByClosing())
+            result.Response = autorest.Response{Response: resp}
+            return
+    }
 
 // ListByTenant retrieve a list of Automanage best practices
 func (client BestPracticesClient) ListByTenant(ctx context.Context) (result BestPracticeList, err error) {
-	if tracing.IsEnabled() {
-		ctx = tracing.StartSpan(ctx, fqdn+"/BestPracticesClient.ListByTenant")
-		defer func() {
-			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
-			}
-			tracing.EndSpan(ctx, sc, err)
-		}()
-	}
-	req, err := client.ListByTenantPreparer(ctx)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "ListByTenant", nil, "Failure preparing request")
-		return
-	}
+    if tracing.IsEnabled() {
+        ctx = tracing.StartSpan(ctx, fqdn + "/BestPracticesClient.ListByTenant")
+        defer func() {
+            sc := -1
+        if result.Response.Response != nil {
+        sc = result.Response.Response.StatusCode
+        }
+            tracing.EndSpan(ctx, sc, err)
+        }()
+    }
+    req, err := client.ListByTenantPreparer(ctx)
+    if err != nil {
+    err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "ListByTenant", nil , "Failure preparing request")
+    return
+    }
 
-	resp, err := client.ListByTenantSender(req)
-	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "ListByTenant", resp, "Failure sending request")
-		return
-	}
+        resp, err := client.ListByTenantSender(req)
+        if err != nil {
+        result.Response = autorest.Response{Response: resp}
+        err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "ListByTenant", resp, "Failure sending request")
+        return
+        }
 
-	result, err = client.ListByTenantResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "ListByTenant", resp, "Failure responding to request")
-		return
-	}
+        result, err = client.ListByTenantResponder(resp)
+        if err != nil {
+        err = autorest.NewErrorWithError(err, "automanage.BestPracticesClient", "ListByTenant", resp, "Failure responding to request")
+        return
+        }
 
-	return
+    return
 }
 
-// ListByTenantPreparer prepares the ListByTenant request.
-func (client BestPracticesClient) ListByTenantPreparer(ctx context.Context) (*http.Request, error) {
-	const APIVersion = "2022-05-04"
-	queryParameters := map[string]interface{}{
-		"api-version": APIVersion,
-	}
+    // ListByTenantPreparer prepares the ListByTenant request.
+    func (client BestPracticesClient) ListByTenantPreparer(ctx context.Context) (*http.Request, error) {
+        const APIVersion = "2022-05-04"
+    queryParameters := map[string]interface{} {
+    "api-version": APIVersion,
+    }
 
-	preparer := autorest.CreatePreparer(
-		autorest.AsGet(),
-		autorest.WithBaseURL(client.BaseURI),
-		autorest.WithPath("/providers/Microsoft.Automanage/bestPractices"),
-		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
-}
+    preparer := autorest.CreatePreparer(
+autorest.AsGet(),
+autorest.WithBaseURL(client.BaseURI),
+autorest.WithPath("/providers/Microsoft.Automanage/bestPractices"),
+autorest.WithQueryParameters(queryParameters))
+    return preparer.Prepare((&http.Request{}).WithContext(ctx))
+    }
 
-// ListByTenantSender sends the ListByTenant request. The method will close the
-// http.Response Body if it receives an error.
-func (client BestPracticesClient) ListByTenantSender(req *http.Request) (*http.Response, error) {
-	return client.Send(req, autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-}
+    // ListByTenantSender sends the ListByTenant request. The method will close the
+    // http.Response Body if it receives an error.
+    func (client BestPracticesClient) ListByTenantSender(req *http.Request) (*http.Response, error) {
+                return client.Send(req, autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+                }
 
-// ListByTenantResponder handles the response to the ListByTenant request. The method always
-// closes the http.Response Body.
-func (client BestPracticesClient) ListByTenantResponder(resp *http.Response) (result BestPracticeList, err error) {
-	err = autorest.Respond(
-		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
-		autorest.ByClosing())
-	result.Response = autorest.Response{Response: resp}
-	return
-}
+    // ListByTenantResponder handles the response to the ListByTenant request. The method always
+    // closes the http.Response Body.
+    func (client BestPracticesClient) ListByTenantResponder(resp *http.Response) (result BestPracticeList, err error) {
+            err = autorest.Respond(
+            resp,
+            azure.WithErrorUnlessStatusCode(http.StatusOK),
+            autorest.ByUnmarshallingJSON(&result),
+            autorest.ByClosing())
+            result.Response = autorest.Response{Response: resp}
+            return
+    }
+
