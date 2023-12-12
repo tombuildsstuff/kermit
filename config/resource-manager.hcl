@@ -25,6 +25,11 @@ resource_manager "automanage" "2022-05-04" {
   readme_file_path = "../../swagger/specification/automanage/resource-manager/readme.md"
 }
 
+resource_manager "authorization" "2022-05-01-preview" {
+  swagger_tag      = "package-2022-05-01-preview"
+  readme_file_path = "../../swagger/specification/authorization/resource-manager/readme.md"
+}
+
 resource_manager "compute" "2022-08-01" {
   swagger_tag = "package-2022-08-01"
   readme_file_path = "../../swagger/specification/compute/resource-manager/readme.md"
