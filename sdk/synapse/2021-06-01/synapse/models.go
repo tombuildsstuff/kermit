@@ -770,7 +770,7 @@ type BigDataPoolResourceProperties struct {
 	IsAutotuneEnabled *bool `json:"isAutotuneEnabled,omitempty"`
 	// SessionLevelPackagesEnabled - Whether session level packages enabled.
 	SessionLevelPackagesEnabled *bool `json:"sessionLevelPackagesEnabled,omitempty"`
-	// CacheSize - READ-ONLY; The cache size
+	// CacheSize - The cache size
 	CacheSize *int32 `json:"cacheSize,omitempty"`
 	// DynamicExecutorAllocation - Dynamic Executor Allocation
 	DynamicExecutorAllocation *DynamicExecutorAllocation `json:"dynamicExecutorAllocation,omitempty"`
@@ -816,6 +816,9 @@ func (bdprp BigDataPoolResourceProperties) MarshalJSON() ([]byte, error) {
 	}
 	if bdprp.SessionLevelPackagesEnabled != nil {
 		objectMap["sessionLevelPackagesEnabled"] = bdprp.SessionLevelPackagesEnabled
+	}
+	if bdprp.CacheSize != nil {
+		objectMap["cacheSize"] = bdprp.CacheSize
 	}
 	if bdprp.DynamicExecutorAllocation != nil {
 		objectMap["dynamicExecutorAllocation"] = bdprp.DynamicExecutorAllocation
