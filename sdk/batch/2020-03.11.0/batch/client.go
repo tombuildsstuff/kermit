@@ -10,24 +10,26 @@ package batch
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"github.com/Azure/go-autorest/autorest"
+    "github.com/Azure/go-autorest/autorest"
 )
+
 
 // BaseClient is the base client for Batch.
 type BaseClient struct {
-	autorest.Client
-	BatchURL string
+    autorest.Client
+            BatchURL string
 }
 
 // New creates an instance of the BaseClient client.
-func New(batchURL string) BaseClient {
-	return NewWithoutDefaults(batchURL)
+func New(batchURL string)BaseClient {
+    return NewWithoutDefaults(batchURL)
 }
 
 // NewWithoutDefaults creates an instance of the BaseClient client.
 func NewWithoutDefaults(batchURL string) BaseClient {
-	return BaseClient{
-		Client:   autorest.NewClientWithUserAgent(UserAgent()),
-		BatchURL: batchURL,
-	}
+    return BaseClient{
+        Client: autorest.NewClientWithUserAgent(UserAgent()),
+                BatchURL: batchURL,
+    }
 }
+
