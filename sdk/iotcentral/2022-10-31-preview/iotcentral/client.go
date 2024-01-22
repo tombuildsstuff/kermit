@@ -10,31 +10,31 @@ package iotcentral
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-    "github.com/Azure/go-autorest/autorest"
+	"github.com/Azure/go-autorest/autorest"
 )
 
 const (
-// DefaultBaseDomain is the default value for base domain
-DefaultBaseDomain = "azureiotcentral.com")
+	// DefaultBaseDomain is the default value for base domain
+	DefaultBaseDomain = "azureiotcentral.com"
+)
 
 // BaseClient is the base client for Iotcentral.
 type BaseClient struct {
-    autorest.Client
-            BaseDomain string
-            Subdomain string
+	autorest.Client
+	BaseDomain string
+	Subdomain  string
 }
 
 // New creates an instance of the BaseClient client.
-func New(subdomain string)BaseClient {
-    return NewWithoutDefaults(subdomain, DefaultBaseDomain)
+func New(subdomain string) BaseClient {
+	return NewWithoutDefaults(subdomain, DefaultBaseDomain)
 }
 
 // NewWithoutDefaults creates an instance of the BaseClient client.
 func NewWithoutDefaults(subdomain string, baseDomain string) BaseClient {
-    return BaseClient{
-        Client: autorest.NewClientWithUserAgent(UserAgent()),
-                BaseDomain: baseDomain,
-                Subdomain: subdomain,
-    }
+	return BaseClient{
+		Client:     autorest.NewClientWithUserAgent(UserAgent()),
+		BaseDomain: baseDomain,
+		Subdomain:  subdomain,
+	}
 }
-
