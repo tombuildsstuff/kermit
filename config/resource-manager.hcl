@@ -35,7 +35,7 @@ resource_manager "compute" "2023-03-01" {
   readme_file_path = "../../swagger/specification/compute/resource-manager/readme.md"
 }
 
-resource_manager "datafactory" "2018-06" {
+resource_manager "datafactory" "2018-06-01" {
   swagger_tag = "package-2018-06"
   readme_file_path = "../../swagger/specification/datafactory/resource-manager/readme.md"
 }
