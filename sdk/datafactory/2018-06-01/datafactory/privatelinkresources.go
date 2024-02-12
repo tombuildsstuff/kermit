@@ -7,117 +7,116 @@ package datafactory
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
-	"net/http"
-
-	"github.com/Azure/go-autorest/autorest"
-	"github.com/Azure/go-autorest/autorest/azure"
-	"github.com/Azure/go-autorest/autorest/validation"
-	"github.com/Azure/go-autorest/tracing"
+    "github.com/Azure/go-autorest/autorest"
+    "github.com/Azure/go-autorest/autorest/azure"
+    "net/http"
+    "context"
+    "github.com/Azure/go-autorest/tracing"
+    "github.com/Azure/go-autorest/autorest/validation"
 )
 
 // PrivateLinkResourcesClient is the the Azure Data Factory V2 management API provides a RESTful set of web services
 // that interact with Azure Data Factory V2 services.
 type PrivateLinkResourcesClient struct {
-	BaseClient
+    BaseClient
 }
-
 // NewPrivateLinkResourcesClient creates an instance of the PrivateLinkResourcesClient client.
 func NewPrivateLinkResourcesClient(subscriptionID string) PrivateLinkResourcesClient {
-	return NewPrivateLinkResourcesClientWithBaseURI(DefaultBaseURI, subscriptionID)
+    return NewPrivateLinkResourcesClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewPrivateLinkResourcesClientWithBaseURI creates an instance of the PrivateLinkResourcesClient client using a custom
 // endpoint.  Use this when interacting with an Azure cloud that uses a non-standard base URI (sovereign clouds, Azure
 // stack).
-func NewPrivateLinkResourcesClientWithBaseURI(baseURI string, subscriptionID string) PrivateLinkResourcesClient {
-	return PrivateLinkResourcesClient{NewWithBaseURI(baseURI, subscriptionID)}
-}
+    func NewPrivateLinkResourcesClientWithBaseURI(baseURI string, subscriptionID string) PrivateLinkResourcesClient {
+        return PrivateLinkResourcesClient{ NewWithBaseURI(baseURI, subscriptionID)}
+    }
 
 // Get gets the private link resources
-// Parameters:
-// resourceGroupName - the resource group name.
-// factoryName - the factory name.
+    // Parameters:
+        // resourceGroupName - the resource group name.
+        // factoryName - the factory name.
 func (client PrivateLinkResourcesClient) Get(ctx context.Context, resourceGroupName string, factoryName string) (result PrivateLinkResourcesWrapper, err error) {
-	if tracing.IsEnabled() {
-		ctx = tracing.StartSpan(ctx, fqdn+"/PrivateLinkResourcesClient.Get")
-		defer func() {
-			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
-			}
-			tracing.EndSpan(ctx, sc, err)
-		}()
-	}
-	if err := validation.Validate([]validation.Validation{
-		{TargetValue: resourceGroupName,
-			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}},
-		{TargetValue: factoryName,
-			Constraints: []validation.Constraint{{Target: "factoryName", Name: validation.MaxLength, Rule: 63, Chain: nil},
-				{Target: "factoryName", Name: validation.MinLength, Rule: 3, Chain: nil},
-				{Target: "factoryName", Name: validation.Pattern, Rule: `^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewError("datafactory.PrivateLinkResourcesClient", "Get", err.Error())
-	}
+    if tracing.IsEnabled() {
+        ctx = tracing.StartSpan(ctx, fqdn + "/PrivateLinkResourcesClient.Get")
+        defer func() {
+            sc := -1
+        if result.Response.Response != nil {
+        sc = result.Response.Response.StatusCode
+        }
+            tracing.EndSpan(ctx, sc, err)
+        }()
+    }
+        if err := validation.Validate([]validation.Validation{
+        { TargetValue: resourceGroupName,
+         Constraints: []validation.Constraint{	{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil },
+        	{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil },
+        	{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil }}},
+        { TargetValue: factoryName,
+         Constraints: []validation.Constraint{	{Target: "factoryName", Name: validation.MaxLength, Rule: 63, Chain: nil },
+        	{Target: "factoryName", Name: validation.MinLength, Rule: 3, Chain: nil },
+        	{Target: "factoryName", Name: validation.Pattern, Rule: `^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$`, Chain: nil }}}}); err != nil {
+        return result, validation.NewError("datafactory.PrivateLinkResourcesClient", "Get", err.Error())
+        }
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, factoryName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "datafactory.PrivateLinkResourcesClient", "Get", nil, "Failure preparing request")
-		return
-	}
+        req, err := client.GetPreparer(ctx, resourceGroupName, factoryName)
+    if err != nil {
+    err = autorest.NewErrorWithError(err, "datafactory.PrivateLinkResourcesClient", "Get", nil , "Failure preparing request")
+    return
+    }
 
-	resp, err := client.GetSender(req)
-	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "datafactory.PrivateLinkResourcesClient", "Get", resp, "Failure sending request")
-		return
-	}
+        resp, err := client.GetSender(req)
+        if err != nil {
+        result.Response = autorest.Response{Response: resp}
+        err = autorest.NewErrorWithError(err, "datafactory.PrivateLinkResourcesClient", "Get", resp, "Failure sending request")
+        return
+        }
 
-	result, err = client.GetResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "datafactory.PrivateLinkResourcesClient", "Get", resp, "Failure responding to request")
-		return
-	}
+        result, err = client.GetResponder(resp)
+        if err != nil {
+        err = autorest.NewErrorWithError(err, "datafactory.PrivateLinkResourcesClient", "Get", resp, "Failure responding to request")
+        return
+        }
 
-	return
+    return
 }
 
-// GetPreparer prepares the Get request.
-func (client PrivateLinkResourcesClient) GetPreparer(ctx context.Context, resourceGroupName string, factoryName string) (*http.Request, error) {
-	pathParameters := map[string]interface{}{
-		"factoryName":       autorest.Encode("path", factoryName),
-		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
-	}
+    // GetPreparer prepares the Get request.
+    func (client PrivateLinkResourcesClient) GetPreparer(ctx context.Context, resourceGroupName string, factoryName string) (*http.Request, error) {
+        pathParameters := map[string]interface{} {
+        "factoryName": autorest.Encode("path",factoryName),
+        "resourceGroupName": autorest.Encode("path",resourceGroupName),
+        "subscriptionId": autorest.Encode("path",client.SubscriptionID),
+        }
 
-	const APIVersion = "2018-06-01"
-	queryParameters := map[string]interface{}{
-		"api-version": APIVersion,
-	}
+            const APIVersion = "2018-06-01"
+    queryParameters := map[string]interface{} {
+    "api-version": APIVersion,
+    }
 
-	preparer := autorest.CreatePreparer(
-		autorest.AsGet(),
-		autorest.WithBaseURL(client.BaseURI),
-		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/privateLinkResources", pathParameters),
-		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
-}
+    preparer := autorest.CreatePreparer(
+autorest.AsGet(),
+autorest.WithBaseURL(client.BaseURI),
+autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/privateLinkResources",pathParameters),
+autorest.WithQueryParameters(queryParameters))
+    return preparer.Prepare((&http.Request{}).WithContext(ctx))
+    }
 
-// GetSender sends the Get request. The method will close the
-// http.Response Body if it receives an error.
-func (client PrivateLinkResourcesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
-}
+    // GetSender sends the Get request. The method will close the
+    // http.Response Body if it receives an error.
+    func (client PrivateLinkResourcesClient) GetSender(req *http.Request) (*http.Response, error) {
+                return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+                }
 
-// GetResponder handles the response to the Get request. The method always
-// closes the http.Response Body.
-func (client PrivateLinkResourcesClient) GetResponder(resp *http.Response) (result PrivateLinkResourcesWrapper, err error) {
-	err = autorest.Respond(
-		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
-		autorest.ByClosing())
-	result.Response = autorest.Response{Response: resp}
-	return
-}
+    // GetResponder handles the response to the Get request. The method always
+    // closes the http.Response Body.
+    func (client PrivateLinkResourcesClient) GetResponder(resp *http.Response) (result PrivateLinkResourcesWrapper, err error) {
+            err = autorest.Respond(
+            resp,
+            azure.WithErrorUnlessStatusCode(http.StatusOK),
+            autorest.ByUnmarshallingJSON(&result),
+            autorest.ByClosing())
+            result.Response = autorest.Response{Response: resp}
+            return
+    }
+
