@@ -1459,21 +1459,6 @@ func PossibleSalesforceV2SinkWriteBehaviorValues() []SalesforceV2SinkWriteBehavi
 	return []SalesforceV2SinkWriteBehavior{SalesforceV2SinkWriteBehaviorInsert, SalesforceV2SinkWriteBehaviorUpsert}
 }
 
-// SalesforceV2SourceReadBehavior enumerates the values for salesforce v2 source read behavior.
-type SalesforceV2SourceReadBehavior string
-
-const (
-	// SalesforceV2SourceReadBehaviorQuery ...
-	SalesforceV2SourceReadBehaviorQuery SalesforceV2SourceReadBehavior = "query"
-	// SalesforceV2SourceReadBehaviorQueryAll ...
-	SalesforceV2SourceReadBehaviorQueryAll SalesforceV2SourceReadBehavior = "queryAll"
-)
-
-// PossibleSalesforceV2SourceReadBehaviorValues returns an array of possible values for the SalesforceV2SourceReadBehavior const type.
-func PossibleSalesforceV2SourceReadBehaviorValues() []SalesforceV2SourceReadBehavior {
-	return []SalesforceV2SourceReadBehavior{SalesforceV2SourceReadBehaviorQuery, SalesforceV2SourceReadBehaviorQueryAll}
-}
-
 // SapCloudForCustomerSinkWriteBehavior enumerates the values for sap cloud for customer sink write behavior.
 type SapCloudForCustomerSinkWriteBehavior string
 
